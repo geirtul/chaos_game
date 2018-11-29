@@ -32,12 +32,28 @@ def pick_starting_point(corners):
     start = np.sum(points*corners, axis=0)
     return start
 
+def gen_fractal_points(starting_point, corners, n_points):
+    """
+    Generate the set of points to plot based on the chaos game algorithm
+    """
+    # Initialize ponts array and starting point
+    points = np.zeros((n_points+5,corners.shape[1]))
+    points[0] = starting_point
+
+    # Pick random corners
+    indices = np.random.randint(0, corners.shape[0], n_points+5)
+    for i in range(1, len(points)-1):
+        points[i] = (points[i-1] + corners[indices[i-1]]) / 2
+
+    return points[5:,:]
+
 n_sides = 3
 corners = get_corners(n_sides)
-starting_points = [pick_starting_point(corners) for i in range(1000)]
+starting_point = pick_starting_point(corners)
+generated_points = gen_fractal_points(starting_point, corners, 10000)
 
 # %%
-plt.scatter(*zip(*corners), c='b')
-plt.scatter(*zip(*starting_points), c='r')
+plt.scatter(*zip(*corners))
+plt.scatter(*zip(*generated_points), s=1.0)
 plt.axis("equal")
 plt.show()
