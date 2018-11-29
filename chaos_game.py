@@ -45,15 +45,21 @@ def gen_fractal_points(starting_point, corners, n_points):
     for i in range(1, len(points)-1):
         points[i] = (points[i-1] + corners[indices[i-1]]) / 2
 
-    return points[5:,:]
+    return points[5:,:], indices[5:]
 
 n_sides = 3
 corners = get_corners(n_sides)
 starting_point = pick_starting_point(corners)
-generated_points = gen_fractal_points(starting_point, corners, 10000)
+generated_points, colors = gen_fractal_points(starting_point, corners, 10000)
+
+red = generated_points[colors == 0]
+green = generated_points[colors == 1]
+blue = generated_points[colors == 2]
 
 # %%
 plt.scatter(*zip(*corners))
-plt.scatter(*zip(*generated_points), s=1.0)
+plt.scatter(*zip(*red), s=0.2, color='red')
+plt.scatter(*zip(*green), s=0.2, color='green')
+plt.scatter(*zip(*blue), s=0.2, color='blue')
 plt.axis("equal")
 plt.show()
