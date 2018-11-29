@@ -1,5 +1,3 @@
-# news_stock
-Work on kaggle dataset on Daily News for Stock market Prediction
-
-## Dataset
-https://www.kaggle.com/aaron7sun/stocknews
+# chaos_game
+Implementation of the chaos game, described here:
+[Wiki](https://en.wikipedia.org/wiki/Chaos_game)
