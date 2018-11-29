@@ -42,8 +42,8 @@ def gen_fractal_points(starting_point, corners, n_points):
 
     # Pick random corners
     indices = np.random.randint(0, corners.shape[0], n_points+5)
-    for i in range(1, len(points)-1):
-        points[i] = (points[i-1] + corners[indices[i-1]]) / 2
+    for i in range(1, len(points)):
+        points[i] = (points[i-1] + corners[indices[i]]) / 2
 
     # Return indices as well to use for coloring the plot
     return points[5:,:], indices[5:]
@@ -58,9 +58,8 @@ green = generated_points[colors == 1]
 blue = generated_points[colors == 2]
 
 # %%
-plt.scatter(*zip(*corners))
-plt.scatter(*zip(*red), s=0.1, color='red')
-plt.scatter(*zip(*green), s=0.1, color='green')
-plt.scatter(*zip(*blue), s=0.1, color='blue')
+plt.scatter(*zip(*red), s=0.2, color='red', marker='.')
+plt.scatter(*zip(*green), s=0.2, color='green', marker='.')
+plt.scatter(*zip(*blue), s=0.2, color='blue', marker='.')
 plt.axis("equal")
 plt.show()
